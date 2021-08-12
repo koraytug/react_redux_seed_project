@@ -1,0 +1,11 @@
+npm init -y   (package.json init eder)
+npm install express --save   
+touch app.js  
+touch .env 
+npm install dotenv --save
+npm install nodemon --save  (save edince otomatik yenileme yapar)
+npm install -g concurrently 
+npm install body-parser
+mkdir views routes controllers
+
+

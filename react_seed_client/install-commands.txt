@@ -1,0 +1,5 @@
+Npx create-react-app react_seed_client
+npm install node-sass --save 
+Npm install styled-components
+npm install --save react-router-dom 
+npm install axios
