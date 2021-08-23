@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createCustomer } from '../../../redux/customer/customer.actions';
+import {
+  CustomerForm,
+  CustomerFormItem,
+  FormLabelItem,
+  FormInputItem,
+} from './add-customer.styles';
 
 class AddCustomer extends Component {
   constructor(props) {
@@ -66,10 +72,10 @@ class AddCustomer extends Component {
             </button>
           </div>
         ) : (
-          <div>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
-              <input
+          <CustomerForm>
+            <CustomerFormItem>
+              <FormLabelItem htmlFor="name">Name</FormLabelItem>
+              <FormInputItem
                 type="text"
                 className="form-control"
                 id="name"
@@ -78,25 +84,24 @@ class AddCustomer extends Component {
                 onChange={this.onChangeName}
                 name="naem"
               />
-            </div>
+            </CustomerFormItem>
 
-            <div className="form-group">
-              <label htmlFor="surname">Surname</label>
-              <input
+            <CustomerFormItem>
+              <FormLabelItem htmlFor="surname">Surname</FormLabelItem>
+              <FormInputItem
                 type="text"
-                className="form-control"
                 id="surname"
                 required
                 value={this.state.surname}
                 onChange={this.onChangeSurname}
                 name="surname"
               />
-            </div>
+            </CustomerFormItem>
 
             <button onClick={this.saveCustomer} className="btn btn-success">
               Submit
             </button>
-          </div>
+          </CustomerForm>
         )}
       </div>
     );

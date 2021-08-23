@@ -7,5 +7,6 @@ npm install nodemon --save  (save edince otomatik yenileme yapar)
 npm install -g concurrently 
 npm install body-parser
 mkdir views routes controllers
+npm install mongoose --save
 
 

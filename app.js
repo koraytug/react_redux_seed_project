@@ -23,6 +23,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/customerlist', require('./routes/customer.route'));
+// app.use('/customers', require('./routes/customer.route'));
 
 app.listen(PORT, (error) => {
   if (error) throw error;
