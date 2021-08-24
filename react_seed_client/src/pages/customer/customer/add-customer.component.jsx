@@ -19,16 +19,10 @@ import {
 class AddCustomer extends Component {
   constructor(props) {
     super(props);
-    this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeSurname = this.onChangeSurname.bind(this);
-    this.onChangePhone = this.onChangePhone.bind(this);
-    this.onChangeBirthDate = this.onChangeBirthDate.bind(this);
-    this.onChangeBirthMonth = this.onChangeBirthMonth.bind(this);
-    this.onChangeBirthYear = this.onChangeBirthYear.bind(this);
-    this.onChangeBirthReminder = this.onChangeBirthReminder.bind(this);
+
+    this.handleOnChanges = this.handleOnChanges.bind(this);
 
     this.saveCustomer = this.saveCustomer.bind(this);
-    // this.newTutorial = this.newCustomer.bind(this);
 
     this.state = {
       id: null,
@@ -42,39 +36,13 @@ class AddCustomer extends Component {
     };
   }
 
-  onChangeName(e) {
+  handleOnChanges(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
     this.setState({
-      name: e.target.value,
-    });
-  }
-  onChangeSurname(e) {
-    this.setState({
-      surname: e.target.value,
-    });
-  }
-  onChangePhone(e) {
-    this.setState({
-      phone: e.target.value,
-    });
-  }
-  onChangeBirthDate(e) {
-    this.setState({
-      birthdate: e.target.value,
-    });
-  }
-  onChangeBirthMonth(e) {
-    this.setState({
-      birthmonth: e.target.value,
-    });
-  }
-  onChangeBirthYear(e) {
-    this.setState({
-      birthyear: e.target.value,
-    });
-  }
-  onChangeBirthReminder(e) {
-    this.setState({
-      birthreminder: e.target.value,
+      [name]: value,
     });
   }
 
@@ -102,15 +70,12 @@ class AddCustomer extends Component {
         birthreminder,
       })
       .then((data) => {
-
         console.log(data);
       })
       .catch((e) => {
         console.log(e);
       });
   }
-
-  
 
   render() {
     return (
@@ -124,7 +89,7 @@ class AddCustomer extends Component {
               id="name"
               required
               value={this.state.name}
-              onChange={this.onChangeName}
+              onChange={this.handleOnChanges}
               name="name"
             />
           </CustomerFormItem>
@@ -135,7 +100,7 @@ class AddCustomer extends Component {
               id="surname"
               required
               value={this.state.surname}
-              onChange={this.onChangeSurname}
+              onChange={this.handleOnChanges}
               name="surname"
             />
           </CustomerFormItem>
@@ -149,7 +114,7 @@ class AddCustomer extends Component {
               id="phone"
               required
               value={this.state.phone}
-              onChange={this.onChangePhone}
+              onChange={this.handleOnChanges}
               name="phone"
             />
           </CustomerFormItem>
@@ -163,7 +128,7 @@ class AddCustomer extends Component {
               value={this.state.birthdate}
               name="birthdate"
               placeholder="Day"
-              onChange={this.onChangeBirthDate}
+              onChange={this.handleOnChanges}
             />
             /
             <BirthMonth
@@ -173,7 +138,7 @@ class AddCustomer extends Component {
               maxLength="2"
               value={this.state.birthmonth}
               name="birthmonth"
-              onChange={this.onChangeBirthMonth}
+              onChange={this.handleOnChanges}
               placeholder="Month"
             />
             /
@@ -184,7 +149,7 @@ class AddCustomer extends Component {
               maxLength="4"
               value={this.state.birthyear}
               name="birthyear"
-              onChange={this.onChangeBirthYear}
+              onChange={this.handleOnChanges}
               placeholder="Year"
             />
           </CustomerFormItem>
@@ -199,7 +164,8 @@ class AddCustomer extends Component {
               name="birthreminder"
               type="checkbox"
               value={this.state.birthreminder}
-              onChange={this.onChangeBirthReminder}
+              checked={this.state.birthreminder}
+              onChange={this.handleOnChanges}
               defaultChecked={false}
             />
           </CustomerFormItem>
