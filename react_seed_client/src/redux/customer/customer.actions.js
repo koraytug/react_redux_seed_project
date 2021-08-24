@@ -1,11 +1,27 @@
 import CustomerDataService from '../../services/customer.services';
 import CustomerActionTypes from './customer.types';
 
-export const createCustomer = (name, surname) => async (dispatch) => {
+export const createCustomer = (customer) => async (dispatch) => {
   try {
+    const {
+      id,
+      name,
+      surname,
+      phone,
+      birthdate,
+      birthmonth,
+      birthyear,
+      birthreminder,
+    } = customer;
     const res = await CustomerDataService.create({
-      name: name,
-      surname: surname,
+      id,
+      name,
+      surname,
+      phone,
+      birthdate,
+      birthmonth,
+      birthyear,
+      birthreminder,
     });
 
     dispatch({
