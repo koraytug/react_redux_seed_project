@@ -1,4 +1,5 @@
-const CUSTOMER_DATA = {
+
+const  CustomerData = {
   customers: {
     id: 1,
     title: 'Customers',
@@ -22,5 +23,5 @@ const CUSTOMER_DATA = {
     ],
   },
 };
-
-module.exports = CUSTOMER_DATA;
+ 
+export {CustomerData};

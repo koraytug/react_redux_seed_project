@@ -9,4 +9,15 @@ npm install body-parser
 mkdir views routes controllers
 npm install mongoose --save
 
+//---convert to typescript
+npm install -g typescript
+npm install --save typescript @types/node
 
+// init tsc creates tsconfig.json
+npx tsc --init 
+
+npm install -D @types/node @types/express
+
+//setup eslint
+npm install eslint --save-dev
+npx eslint --init

@@ -1,10 +1,12 @@
-const express = require('express');
+// const express = require('express');
+import * as express from 'express'
+import * as path from 'path';
 const bodyParser = require('body-parser');
 // require('dotenv').config();
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
-app = express();
+const app = express();
 
 const PORT = process.env.PORT || 4400;
 
@@ -25,7 +27,6 @@ app.get('/', (req, res) => {
 app.use('/customerlist', require('./routes/customer.route'));
 // app.use('/customers', require('./routes/customer.route'));
 
-app.listen(PORT, (error) => {
-  if (error) throw error;
+app.listen(PORT, () => {
   console.log(`listening on port: ${PORT}`);
 });
