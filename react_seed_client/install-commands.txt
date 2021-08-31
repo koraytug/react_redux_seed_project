@@ -3,3 +3,9 @@ npm install node-sass --save
 Npm install styled-components
 npm install --save react-router-dom 
 npm install axios
+
+ npm install eslint typescript
+  npm install eslint --save-dev
+  npx eslint --init 
+  //test eslintnpx 
+  eslint src/* --fix   

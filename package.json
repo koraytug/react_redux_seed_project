@@ -2,7 +2,7 @@
   "name": "react_redux_seed_project",
   "version": "1.0.0",
   "proxy": "http://localhost:4400",
-  "description": "",
+  "description": "", 
   "main": "dist/app.js",
   "engines": {
     "node": "v10.17.0",

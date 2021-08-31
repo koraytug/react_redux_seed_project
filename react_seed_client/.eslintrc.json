@@ -1,11 +1,13 @@
 {
   "env": {
-    "es2021": true,
-    "node": true
+    "es6": true,
+    "es2021": true
   },
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
@@ -17,16 +19,14 @@
     "sourceType": "module"
   },
   "plugins": [
-    "@typescript-eslint"
+        "react",
+        "@typescript-eslint" 
   ],
   "rules": {
-          "@typescript-eslint/indent": ["error", 2],
-    "@typescript-eslint/no-unused-vars": "error",
-    "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/adjacent-overload-signatures": "warn",
     "@typescript-eslint/array-type": "warn",
     "@typescript-eslint/ban-types": "warn",
-    
+     
     "@typescript-eslint/consistent-type-assertions": "off",
      
     "@typescript-eslint/member-delimiter-style": [
@@ -45,13 +45,14 @@
     "@typescript-eslint/member-ordering": "warn",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-empty-interface": "warn",
- 
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-extra-parens": "off",
     "@typescript-eslint/no-misused-new": "warn",
     "@typescript-eslint/no-namespace": "warn",
     "@typescript-eslint/no-parameter-properties": "off",
-    "no-redeclare": "off",
-    "@typescript-eslint/no-use-before-define": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"], 
+     "no-redeclare": "off",
     "@typescript-eslint/no-useless-constructor": "warn",
     "@typescript-eslint/no-var-requires": "warn",
     "@typescript-eslint/prefer-for-of": "warn",
@@ -73,6 +74,7 @@
     ],
     "@typescript-eslint/triple-slash-reference": "warn",
     "@typescript-eslint/unified-signatures": "warn",
+    
     "array-bracket-spacing": [
       "warn",
       "never"
@@ -188,12 +190,12 @@
     ],
     "max-classes-per-file": [
       "warn",
-      3
+      6
     ],
     "max-len": [
       "warn",
       {
-        "code": 140,
+        "code": 400,
         "ignoreComments": true
       }
     ],
@@ -247,7 +249,7 @@
       "never"
     ],
     "prefer-arrow-callback": "warn",
-    "prefer-const": "warn",
+    "prefer-const": "error",
     "quote-props": [
       "warn",
       "as-needed"
@@ -317,5 +319,10 @@
     ],
     "use-isnan": "warn",
     "valid-typeof": "off"
+  },
+    "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

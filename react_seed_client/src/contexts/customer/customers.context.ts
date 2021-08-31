@@ -1,6 +1,6 @@
-import { createContext } from 'react';
+import {createContext} from "react";
 
-import CUSTOMER_DATA from './customer.data';
+import CUSTOMER_DATA from "./customer.data";
 
 const CustomerContext = createContext(CUSTOMER_DATA);
 
