@@ -1,57 +1,122 @@
 // const data = require('../models/customer.data');
-import {CustomerData} from "../models/customer.data";
+// import {CustomerData} from "../models/customer.data";
+import {MongoClient, ObjectId} from "mongodb";
+// import {ICustomer} from "../models/icustomer";
 import {ICustomerController} from "./icustomer.controller";
 // const db = require('../models');
 // const Customer = db.customers;
 // exports.customerList = (req, res) => {
 //   res.send('Hello this will return customer list');
 // };
-export class CustomerController implements ICustomerController {
-    static customerList(arg0: string, customerList: any) {
-        throw new Error("Method not implemented.");
+import dotenv from "dotenv";
+import {Request, Response} from "express";
+
+export default class CustomerController implements ICustomerController {
+    private uri: string;
+    private dbName: string;
+    private collectionName: string;
+
+    constructor() {
+        dotenv.config();
+        this.uri = process.env.uri || "";
+        this.dbName = "TESTAPP";
+        this.collectionName = "customers";
     }
-    public customerList(req, res) {
-        console.log("req geldi");
-        if (req.query.customername !== undefined && req.query.customername !== "") {
-            const result = Object.values(CustomerData.customers.items).filter(customer =>
-                customer.name.startsWith(req.query.customername)
-            );
-            res.send(result);
-        } else {
-            res.send(CustomerData);
+
+    public async customerList(req: Request, res: Response) {
+        const client = new MongoClient((process.env.uri || ""));
+        try {
+            await client.connect();
+            const db = client.db("TESTAPP");
+
+            const items = await db.collection("customers").find();
+
+            res.status(200).send(await items.toArray());
+            client.close();
+        } catch (error) {
+            res.status(500).send(error.message);
+            // reject(error);
         }
+        // return new Promise((resolve, reject) => {
+        //     const client = new MongoClient(this.uri);
+        //     try {
+        //         client.connect();
+        //         const db = client.db(this.dbName);
+
+        //         const items = db.collection(this.collectionName).find();
+        //         resolve(items.toArray());
+        //         res.send("Hello");
+        //         client.close();
+        //     } catch (error) {
+        //         reject(error);
+        //     }
+        // });
+
     }
 
     // Create and Save a new Tutorial
-    public create(req, res) {
-        // // Validate request
-        // if (!req.body.name) {
-        //     res.status(400).send({ message: 'Content can not be empty!' });
-        //     return;
-        // }
+    public async create(req: Request, res: Response) {
+    // Validate request
+        if (!req.body.name) {
+            res.status(400).send({message: "Content can not be empty!"});
+            return;
+        }
+        const client = new MongoClient((process.env.uri || ""));
+        try {
+            await client.connect();
+
+            const db = client.db(this.dbName);
+            const addedItem = await db.collection(this.collectionName).insertOne(req.body.customer);
+
+            res.status(200).send(addedItem);
+
+            client.close();
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
+
+        // return new Promise((resolve, reject) => {
+        //     const client = new MongoClient(this.uri);
+        //     try {
+        //         client.connect();
+        //         const db = client.db(this.dbName);
+        //         const addedItem = db.collection("customers").insertOne(req.body.customer);
+
+        //         resolve(addedItem);
+        //         client.close();
+        //     } catch (error) {
+        //         reject(error);
+        //     }
+        // });
 
         // // Create a Customer
-        // const customer = new Customer({
+        // const customer: ICustomer = {
+        //     id:  req.body.id,
         //     name: req.body.name,
         //     surname: req.body.surname,
-        // });
+        //     phone:  req.body.phone,
+        //     birthdate:  req.body.birthdate,
+        //     birthmonth:  req.body.birthmonth,
+        //     birthyear:  req.body.birthyear,
+        //     birthreminder:  req.body.birthreminder
+        // };
 
         // // Save Customer in the database
         // customer
         //     .save(customer)
-        //     .then((data) => {
-        //     res.send(data);
+        //     .then(data => {
+        //         res.send(data);
         //     })
-        //     .catch((err) => {
-        //     res.status(500).send({
-        //         message:
-        //         err.message || 'Some error occurred while creating the Customer.',
-        //     });
+        //     .catch(err => {
+        //         res.status(500).send({
+        //             message:
+        //     err.message || "Some error occurred while creating the Customer."
+        //         });
         //     });
     }
 
     // Retrieve all Customers from the database.
-    public findAll(req, res) {
+    public findAll() {
     // const name = req.query.name;
     // var condition = name
     //     ? { name: { $regex: new RegExp(name), $options: 'i' } }
@@ -70,7 +135,7 @@ export class CustomerController implements ICustomerController {
     }
 
     // Find a single Customer with an id
-    public findOne(req, res) {
+    public findOne() {
     // const id = req.params.id;
 
     // Customer.findById(id)
@@ -87,12 +152,28 @@ export class CustomerController implements ICustomerController {
     }
 
     // Update a Customer by the id in the request
-    public update(req, res) {
-    // if (!req.body) {
-    //     return res.status(400).send({
-    //     message: 'Data to update can not be empty!',
-    //     });
-    // }
+    public async update(req: Request, res: Response) {
+        if (!req.body) {
+            return res.status(400).send({
+                message: "Data to update can not be empty!"
+            });
+        }
+
+        const id = req.params.id;
+        const client = new MongoClient((process.env.uri || ""));
+        try {
+            await client.connect();
+            const db = client.db("TESTAPP");
+            const updatedItem = await db
+                .collection("customers")
+                .findOneAndReplace({_id: ObjectId(id)}, "res.body.newItem", {
+                    returnOriginal: false
+                });
+            res.status(200).send(updatedItem.value);
+            client.close();
+        } catch (error) {
+            res.status(500).send(error.message);
+        }
 
         // const id = req.params.id;
 
@@ -112,7 +193,7 @@ export class CustomerController implements ICustomerController {
     }
 
     // Delete a Customer with the specified id in the request
-    public delete(req, res) {
+    public delete() {
     // const id = req.params.id;
 
     // Customer.findByIdAndRemove(id)
@@ -135,7 +216,7 @@ export class CustomerController implements ICustomerController {
     }
 
     // Delete all Customers from the database.
-    public deleteAll(req, res) {
+    public deleteAll() {
     // Customer.deleteMany({})
     //     .then((data) => {
     //     res.send({
@@ -152,3 +233,7 @@ export class CustomerController implements ICustomerController {
 
 
 }
+// function As(arg0: import("bson").Document[], As: any, ICustomer: any) {
+//     throw new Error("Function not implemented.");
+// }
+

@@ -21,3 +21,7 @@ npm install -D @types/node @types/express
 //setup eslint
 npm install eslint --save-dev
 npx eslint --init
+
+npm install mongodb
+
+npm install --save-dev ts-node nodemon
