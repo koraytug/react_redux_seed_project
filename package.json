@@ -16,7 +16,10 @@
     "start": "tsc && node dist/app.js",
     "startd": "nodemon src/app.ts",
     "starte": "node .",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "devn": "nodemon --config nodemon.json app.ts",
+    "startn": "node dist/app.js",
+    "buildn": "tsc --project ."
   },
   "keywords": [],
   "author": "",

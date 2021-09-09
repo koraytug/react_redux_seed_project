@@ -2,7 +2,7 @@
 import {Request, Response} from "express";
 
 export interface ICustomerController {
-    customerList(req: Request, res: Response) ;
+    getAllCustomers(req: Request, res: Response) ;
     create (req: Request, res: Response) ;
     findAll(req: Request, res: Response) ;
     findOne(req: Request, res: Response) ;
