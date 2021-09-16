@@ -15,7 +15,7 @@ export default class CustomerController implements ICustomerController {
         this.collectionName = "customers";
     }
 
-    public async getAllCustomers() {
+    public async getAllCustomers(req: Request, res: Response) {
         MongoClient.connect((process.env.uri || ""), (err, client) => {
             if (err) throw err;
 
@@ -23,6 +23,8 @@ export default class CustomerController implements ICustomerController {
             db.collection("customers").find().toArray((err, result) => {
                 if (err) throw err;
                 console.log(result);
+                res.status(201).send(result);
+
                 client.close();
             });
         });

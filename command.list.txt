@@ -25,3 +25,7 @@ npx eslint --init
 npm install mongodb
 
 npm install --save-dev ts-node nodemon
+
+
+npm install cors
+npm install --save-dev @types/cors
